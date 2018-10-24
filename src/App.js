@@ -17,7 +17,8 @@ class App extends Component {
   constructor(props) {
     super(props)
       this.state ={
-          route:'signin'
+          route:'start',
+          navType: 'start'
       }
   }
   componentDidMount() {
@@ -29,24 +30,26 @@ class App extends Component {
           })
           .catch(err => console.log('error getting post'))*/
   }
-    onRouteChange = (route) => {
+    onRouteChange = (route,navType) => {
         this.setState({'route': route});
+        this.setState({'navType': navType});
     }
 
   render() {
-    const {route} = this.state;
+    const {route,navType} = this.state;
+    console.log(navType)
     return (
       <div className="App">
           {route==='start'
-              ?<StartCard onRouteChange={this.onRouteChange}/>
+              ?<StartCard onRouteChange={this.onRouteChange} navType={'start'}/>
               :(route==='addpost'
-              ? <AddPost onRouteChange={this.onRouteChange}/>
+              ? <AddPost onRouteChange={this.onRouteChange} navType={'addpost'}/>
               :(route==='editpost'
-                      ?<EditPost onRouteChange={this.onRouteChange}/>
+                      ?<EditPost onRouteChange={this.onRouteChange} navType={'editpost'}/>
                           : (route==='removepost'
-                              ?<RemovePost onRouteChange={this.onRouteChange}/>
-                              :(route == 'signin'
-                                  ?<SignIn onRouteChange={this.onRouteChange}/>
+                              ?<RemovePost onRouteChange={this.onRouteChange} navType={'removepost'}/>
+                              :(route === 'signin'
+                                  ?<SignIn onRouteChange={this.onRouteChange} navType={'signin'}/>
                                       :<InputForm/>
 
                               ))

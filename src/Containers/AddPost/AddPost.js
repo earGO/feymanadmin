@@ -1,17 +1,36 @@
 import React from 'react';
+import InputForm from '../../Components/InputForm/InputForm'
+import NavCard from '../../Components/NavCard/NavCard';
 
-const AddPost = ({onRouteChange}) => {
+const AddPost = ({onRouteChange, navType}) => {
     return(
-        <article className="bg-white center mw5 ba b--black-10 mv4">
-            <div className="pv2 ph3">
-                <h1 className="f6 ttu tracked">Add post</h1>
-            </div>
-            <a className="f6 link dim ba ph3 pv2 mb2 dib near-black" href="#0"
-               onClick={() => {onRouteChange('start')}}>Back home</a>
-            <a className="f6 link dim ba ph3 pv2 mb2 dib near-black" href="#0">Add post</a>
-            <a className="f6 link dim ba ph3 pv2 mb2 dib near-black" href="#0">add post</a>
-        </article>
-
+        <div className={'returnWrapper'}>
+        <NavCard navType={navType} onRouteChange={onRouteChange}/>
+          <article className="bg-white center mw8 ba b--black-10 mv4">
+            <InputForm
+                labelName={'Post Title'}
+                helperText={'Type the title for the post'}
+                lrgInput={'false'}
+            className={'center'}/>
+            <InputForm
+                labelName={'Post Short'}
+                helperText={'Type the short abstract title for the post'}
+                lrgInput={'true'}
+                className={'center w8 h6'}/>
+          </article>
+            <article className="bg-white center mw8 ba b--black-10 mv4">
+                <InputForm
+                    labelName={'1 article title'}
+                    helperText={'Type the title for the post'}
+                    lrgInput={'false'}
+                    className={'center'}/>
+                <InputForm
+                    labelName={'Post Short'}
+                    helperText={'Type the short abstract title for the post'}
+                    lrgInput={'true'}
+                    className={'center w8 h6'}/>
+            </article>
+        </div>
     )
 }
 
