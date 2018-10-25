@@ -2,8 +2,8 @@ import React from "react"
 
 
 class ArticleForm extends React.Component {
-    constructor(){
-        super()
+    constructor(props){
+        super(props)
         this.state={
             articles: [{articleTitle:"", articleBody:"",articleImage:"",articleUrl:""}],
             postData: [{postTitle: "post title",postShort:""}]
@@ -31,12 +31,14 @@ class ArticleForm extends React.Component {
 
     handleSubmit = (e) => {
         console.log(this.state);
-        e.preventDefault()
+        e.preventDefault();
+
     }
 
 
     render() {
-        let {articles} = this.state
+        let {articles,postData} = this.state;
+        var handleToUpdate = this.props.handleToUpdate;
         return (
             <div onSubmit={this.handleSubmit}
                 onChange={this.handleChange}>
@@ -76,7 +78,8 @@ class ArticleForm extends React.Component {
                                     className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6"
                                     type="submit"
                                     value="Add Article"
-                                onClick={this.addCat}/>
+                                onClick={this.addCat}
+                                />
                             </div>
                         </form>
                     </article>
@@ -137,7 +140,7 @@ class ArticleForm extends React.Component {
                         className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6"
                         type="submit"
                         value="Add Post"
-                    onClick={this.handleSubmit}/>
+                    onClick={() => handleToUpdate(articles,postData)}/>
 
                 </div>
             </div>

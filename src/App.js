@@ -23,12 +23,10 @@ class App extends Component {
   }
   componentDidMount() {
       document.title = "admin console for a Feyman Blog";
- /*     fetch('http://localhost:3000/')
+      fetch('http://localhost:3000/admin')
           .then(response => response.json())
-          .then(data => {
-              this.setState({posts: data});
-          })
-          .catch(err => console.log('error getting post'))*/
+          .then(data => console.log(data))
+          .catch(err => console.log('error getting post'))
   }
     onRouteChange = (route,navType) => {
         this.setState({'route': route});
