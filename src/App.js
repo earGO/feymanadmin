@@ -17,8 +17,8 @@ class App extends Component {
   constructor(props) {
     super(props)
       this.state ={
-          route:'start',
-          navType: 'start'
+          route:'addpost',
+          navType: 'addpost'
       }
   }
   componentDidMount() {
@@ -37,19 +37,18 @@ class App extends Component {
 
   render() {
     const {route,navType} = this.state;
-    console.log(navType)
     return (
       <div className="App">
           {route==='start'
-              ?<StartCard onRouteChange={this.onRouteChange} navType={'start'}/>
+              ?<StartCard onRouteChange={this.onRouteChange} navType={navType}/>
               :(route==='addpost'
-              ? <AddPost onRouteChange={this.onRouteChange} navType={'addpost'}/>
+              ? <AddPost onRouteChange={this.onRouteChange} navType={navType}/>
               :(route==='editpost'
-                      ?<EditPost onRouteChange={this.onRouteChange} navType={'editpost'}/>
+                      ?<EditPost onRouteChange={this.onRouteChange} navType={navType}/>
                           : (route==='removepost'
-                              ?<RemovePost onRouteChange={this.onRouteChange} navType={'removepost'}/>
+                              ?<RemovePost onRouteChange={this.onRouteChange} navType={navType}/>
                               :(route === 'signin'
-                                  ?<SignIn onRouteChange={this.onRouteChange} navType={'signin'}/>
+                                  ?<SignIn onRouteChange={this.onRouteChange} navType={navType}/>
                                       :<InputForm/>
 
                               ))

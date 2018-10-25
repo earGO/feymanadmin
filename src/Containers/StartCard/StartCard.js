@@ -7,13 +7,13 @@ const StartCard = ({onRouteChange}) => {
                 <h1 className="f6 ttu tracked">What to do?</h1>
             </div>
             <a className="f6 link dim ba ph3 pv2 mb2 dib near-black" href="#0"
-                onClick={() => {onRouteChange('addpost')}}>Add post</a>
+                onClick={() => {onRouteChange('addpost','addpost')}}>Add post</a>
             <a className="f6 link dim ba ph3 pv2 mb2 dib near-black" href="#0"
-               onClick={() => {onRouteChange('editpost')}}>Edit posst</a>
+               onClick={() => {onRouteChange('editpost','editpost')}}>Edit posst</a>
             <a className="f6 link dim ba ph3 pv2 mb2 dib near-black" href="#0"
-               onClick={() => {onRouteChange('removepost')}}>Remove post</a>
+               onClick={() => {onRouteChange('removepost','removepost')}}>Remove post</a>
             <a className="f6 link dim ba ph3 pv2 mb2 dib near-black" href="#0"
-               onClick={() => {onRouteChange('signin')}}>Log out</a>
+               onClick={() => {onRouteChange('signin','signin')}}>Log out</a>
         </article>
     )
 }
