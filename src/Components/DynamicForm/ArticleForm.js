@@ -10,7 +10,6 @@ class ArticleForm extends React.Component {
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleInputChange = this.handleInputChange.bind(this);
 
     }
 
@@ -35,16 +34,6 @@ class ArticleForm extends React.Component {
         e.preventDefault()
     }
 
-    handleInputChange(event) {
-        const target = event.target;
-        const value = target.type === 'checkbox' ? target.checked : target.value;
-        const name = target.name;
-
-        this.setState({
-            [name]: value
-        });
-    }
-
 
     render() {
         let {articles} = this.state
@@ -64,9 +53,7 @@ class ArticleForm extends React.Component {
                                            type="text"
                                            name='postTitle'
                                            data-id={0}
-                                           id='postTitle'
-                                           value={this.state.numberOfGuests}
-                                           onChange={this.handleInputChange} />
+                                           id='postTitle'/>
                                 </div>
                                 <div className="mt3">
                                     <label className="db fw4 lh-copy f6" htmlFor="postShort">Short</label>
