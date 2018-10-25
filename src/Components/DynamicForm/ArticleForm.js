@@ -53,27 +53,31 @@ class ArticleForm extends React.Component {
                                            type="text"
                                            name='postTitle'
                                            data-id={0}
-                                           id='postTitle'/>
+                                           id='postTitle'
+                                           style={{width:650}}/>
                                 </div>
                                 <div className="mt3">
                                     <label className="db fw4 lh-copy f6" htmlFor="postShort">Short</label>
-                                    <input className="postShort"
+                                    <textarea className="postShort"
                                            type="text"
                                            name='postShort'
                                            data-id={0}
-                                           id='postShort'/>
+                                           id='postShort'
+                                              style={{height:200,width:650}}/>
                                 </div>
                             </fieldset>
                             <div className="mt3">
                                 <input
                                 className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6"
                                 type="submit"
-                                value="Add Post"/>
+                                value="Add Post"
+                                onClick={this.handleSubmit}/>
                                 <input
                                     className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6"
                                     type="submit"
                                     value="Add Article"
-                                onClick={this.addCat}/></div>
+                                onClick={this.addCat}/>
+                            </div>
                         </form>
                     </article>
 
@@ -83,7 +87,7 @@ class ArticleForm extends React.Component {
                         return (
                             <article className="pa4 black-80" key={idx}>
                                 <form action="sign-up_submit" method="get" acceptCharset="utf-8">
-                                    <fieldset className="ba b--transparent ph0 mh0">
+                                    <fieldset className="ba b--transparent ph0 mh0 b--black-30">
                                         <div className="mt3">
                                             <label className="db fw4 lh-copy f6" htmlFor={articleId}>{`Article #${idx + 1} Title`} </label>
                                             <input className="articleTitle"
@@ -91,23 +95,26 @@ class ArticleForm extends React.Component {
                                                    name={articleId}
                                                    data-id={idx}
                                                    id={articleId}
+                                                   style={{width:650}}
                                                    />
                                         </div>
                                         <div className="mt3">
                                             <label className="db fw4 lh-copy f6" htmlFor={articleBodyId}>Article body</label>
-                                            <input type="text"
+                                            <textarea type="text"
                                                    name={articleBodyId}
                                                    data-id={idx}
                                                    id={articleBodyId}
-                                                   className="articleBody"/>
+                                                   className="articleBody"
+                                                      style={{height:200,width:650}}/>
                                         </div>
                                         <div className="mt3">
-                                            <label className="db fw4 lh-copy f6" htmlFor={articleImageId}>Article Image</label>
+                                            <label className="db fw4 lh-copy f6" htmlFor={articleImageId}>Article ImageUrl</label>
                                             <input type="text"
                                                    name={articleImageId}
                                                    data-id={idx}
                                                    id={articleImageId}
-                                                   className="articleImage"/>
+                                                   className="articleImage"
+                                                   style={{width:650}}/>
                                         </div>
                                         <div className="mt3">
                                             <label className="db fw4 lh-copy f6" htmlFor={articleUrlId}>Article URL</label>
@@ -115,18 +122,24 @@ class ArticleForm extends React.Component {
                                                    name={articleUrlId}
                                                    data-id={idx}
                                                    id={articleUrlId}
-                                                   className="articleUrl"/>
+                                                   className="articleUrl"
+                                                   style={{width:650}}/>
                                         </div>
                                     </fieldset>
                                 </form>
-                                <input
-                                    className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6"
-                                    type="submit"
-                                    value="Save Article"/>
+
                             </article>
                         )
                     })
                     }
+                <div className="mt3">
+                    <input
+                        className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6"
+                        type="submit"
+                        value="Add Post"
+                    onClick={this.handleSubmit}/>
+
+                </div>
             </div>
 
 
