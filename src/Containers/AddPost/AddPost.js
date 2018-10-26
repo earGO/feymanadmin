@@ -2,12 +2,13 @@ import React, {Component} from 'react';
 import NavCard from '../../Components/NavCard/NavCard';
 import ArticleForm from '../../Components/DynamicForm/ArticleForm';
 
+
 class AddPost extends Component {
     constructor(props){
         super(props)
         this.state = {
             articles: [],
-            postData: []
+
                     };
 
         this.handleToUpdate = this.handleToUpdate.bind(this);
@@ -15,14 +16,16 @@ class AddPost extends Component {
     }
 
     componentDidUpdate(){
-        console.log(this.state)
+        console.log('Did updated state', this.state.articles, 'can fetch')
+
     }
 
-    handleToUpdate(aPub,pPub){
+    handleToUpdate(postT,postS,aPub){
         console.log('We pass argument from Child to Parent: ', aPub);
         this.setState({
             articles:aPub,
-            postData:pPub
+            postTitle:postT,
+            postShort:postS
         })
 
   }
@@ -32,7 +35,7 @@ class AddPost extends Component {
         return(
             <div className={'returnWrapper'}>
                 <NavCard navType={this.props.navType} onRouteChange={this.props.onRouteChange}/>
-                <ArticleForm handleToUpdate={handleToUpdate.bind(this)}/>
+                <ArticleForm handleToUpdate={handleToUpdate}/>
             </div>
         )
     }

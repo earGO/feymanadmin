@@ -1,4 +1,6 @@
-import React from "react"
+import React from "react";
+import '../../Components/TagSelector/TagSelector';
+import TagSelector from "../TagSelector/TagSelector";
 
 
 class ArticleForm extends React.Component {
@@ -6,7 +8,9 @@ class ArticleForm extends React.Component {
         super(props)
         this.state={
             articles: [{articleTitle:"", articleBody:"",articleImage:"",articleUrl:""}],
-            postData: [{postTitle: "post title",postShort:""}]
+            /*postData: [{postTitle: "",postShort:""}],*/
+            postTitle: '',
+            postShort: ''
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -23,22 +27,34 @@ class ArticleForm extends React.Component {
        if (["articleTitle", "articleBody","articleImage","articleUrl"].includes(e.target.className) ) {
             let articles = [...this.state.articles];
             articles[e.target.dataset.id][e.target.className] = e.target.value;
-            this.setState({ articles })
+            this.setState({ articles: articles })
         } else {
             this.setState({ [e.target.name]: e.target.value })
         };
     }
 
     handleSubmit = (e) => {
-        console.log(this.state);
+        const {articles,postTitle, postShort} = this.state;
+        console.log('ArticleForm state is', this.state)
+        console.log('this state pist title is', postTitle)
+        this.props.handleToUpdate(postTitle,postShort,articles)
         e.preventDefault();
+            }
 
+    clickOnSubmit = (e) => {
+        fetch('http://localhost:3000/admin/addpost', {
+            method: 'post',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                post_title: this.state.postTitle,
+                post_short: this.state.postShort,
+                articles:this.state.articles
+            })
+        })
     }
 
-
     render() {
-        let {articles,postData} = this.state;
-        var handleToUpdate = this.props.handleToUpdate;
+        let {articles} = this.state;
         return (
             <div onSubmit={this.handleSubmit}
                 onChange={this.handleChange}>
@@ -48,7 +64,6 @@ class ArticleForm extends React.Component {
                               acceptCharset="utf-8"
                         >
                             <fieldset id="sign_up" className="ba b--transparent ph0 mh0">
-                                <legend className="ph0 mh0 fw6 clip">Sign Up</legend>
                                 <div className="mt3">
                                     <label className="db fw4 lh-copy f6" htmlFor="postTitle">Title</label>
                                     <input className="postTitle"
@@ -68,6 +83,7 @@ class ArticleForm extends React.Component {
                                               style={{height:200,width:650}}/>
                                 </div>
                             </fieldset>
+                            <TagSelector/>
                             <div className="mt3">
                                 <input
                                 className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6"
@@ -140,7 +156,7 @@ class ArticleForm extends React.Component {
                         className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6"
                         type="submit"
                         value="Add Post"
-                    onClick={() => handleToUpdate(articles,postData)}/>
+                    onClick={this.clickOnSubmit}/>
 
                 </div>
             </div>
