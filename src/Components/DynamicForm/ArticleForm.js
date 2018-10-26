@@ -48,14 +48,14 @@ class ArticleForm extends React.Component {
 
     clickOnSubmit = (e) => {
         const {articles,postTitle, postShort,postTags} = this.state;
-        fetch('http://localhost:3000/admin/addpost', {
+        fetch('http://localhost:3000/admin/addpostwtags', {
             method: 'post',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
                 post_title: postTitle,
                 post_short: postShort,
                 articles:articles,
-                postTags:postTags
+                tags:postTags
             })
         })
     }
