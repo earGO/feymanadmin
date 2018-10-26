@@ -10,10 +10,13 @@ class ArticleForm extends React.Component {
             articles: [{articleTitle:"", articleBody:"",articleImage:"",articleUrl:""}],
             /*postData: [{postTitle: "",postShort:""}],*/
             postTitle: '',
-            postShort: ''
+            postShort: '',
+            postTags:[]
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleTagsUpdate = this.handleTagsUpdate.bind(this);
+
 
     }
 
@@ -33,23 +36,32 @@ class ArticleForm extends React.Component {
         };
     }
 
+    componentDidUpdate() {
+    }
+
+
     handleSubmit = (e) => {
-        const {articles,postTitle, postShort} = this.state;
-        console.log('ArticleForm state is', this.state)
-        console.log('this state pist title is', postTitle)
-        this.props.handleToUpdate(postTitle,postShort,articles)
+        const {articles,postTitle, postShort,postTags} = this.state;
+        this.props.handleToUpdate(postTitle,postShort,articles,postTags)
         e.preventDefault();
             }
 
     clickOnSubmit = (e) => {
+        const {articles,postTitle, postShort,postTags} = this.state;
         fetch('http://localhost:3000/admin/addpost', {
             method: 'post',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
-                post_title: this.state.postTitle,
-                post_short: this.state.postShort,
-                articles:this.state.articles
+                post_title: postTitle,
+                post_short: postShort,
+                articles:articles,
+                postTags:postTags
             })
+        })
+    }
+    handleTagsUpdate (tags){
+        this.setState({
+            postTags:tags
         })
     }
 
@@ -83,7 +95,7 @@ class ArticleForm extends React.Component {
                                               style={{height:200,width:650}}/>
                                 </div>
                             </fieldset>
-                            <TagSelector/>
+                            <TagSelector handleTagsUpdate={this.handleTagsUpdate}/>
                             <div className="mt3">
                                 <input
                                 className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6"

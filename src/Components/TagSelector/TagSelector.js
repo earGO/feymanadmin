@@ -1,25 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 import AsyncSelect from 'react-select/lib/Async';
 import makeAnimated from 'react-select/lib/animated';
 
-/*type State = {
-    inputValue: string,
-};
-
-const filterColors = (inputValue: string) =>
-    colourOptions.filter(i =>
-        i.label.toLowerCase().includes(inputValue.toLowerCase())
-    );
-
-const promiseOptions = inputValue =>
-    new Promise(resolve => {
-        setTimeout(() => {
-            resolve(filterColors(inputValue));
-        }, 1000);
-    });*/
-
-export default class TagSelector extends Component<*, State> {
+export default class TagSelector extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -27,6 +11,7 @@ export default class TagSelector extends Component<*, State> {
             fColors: [],
             sTags:[]
         };
+
     }
 
     componentDidMount() {
@@ -35,15 +20,12 @@ export default class TagSelector extends Component<*, State> {
             .then(data => {
                 this.setState({fColors: data});
             })
-            .then(console.log(this.state))
             .catch(err => console.log('error getting post'))
     }
-
     componentDidUpdate() {
-        console.log(this.state.sTags)
-    }
 
-    filterColors = (inputValue: string) =>
+    }
+    filterTags = (inputValue: string) =>
         this.state.fColors.filter(i =>
             i.label.toLowerCase().includes(inputValue.toLowerCase())
         );
@@ -51,7 +33,7 @@ export default class TagSelector extends Component<*, State> {
     promiseOptions = inputValue =>
         new Promise(resolve => {
             setTimeout(() => {
-                resolve(this.filterColors(inputValue));
+                resolve(this.filterTags(inputValue));
             }, 1000);
         });
 
@@ -63,27 +45,39 @@ export default class TagSelector extends Component<*, State> {
 
     handleTagsToState = (opt,meta) => {
         if (opt.length) {
-            this.setState({ sTags:opt })
+            this.setState({
+                sTags:opt});
+
         }
     }
 
+    clickOnSubmit = (e) => {
+        this.props.handleTagsUpdate(this.state.sTags);
+
+    }
 
     render() {
         return (
-            <div className={'stylewrapper center'}
-                 style={{width:650}} >
-            <AsyncSelect
-                isMulti
-                closeMenuOnSelect={false}
-                cacheOptions
-                components={makeAnimated()}
-                defaultOptions
-                loadOptions={this.promiseOptions}
-                className='tagSelect'
-                id='tagSelect'
-                onChange={this.handleTagsToState}
-            />
-                </div>
+            <div className={'stylewrapper center db di w-60 cf'}>
+                    <div className={'f6 f5-l input-reset bn fl black-80 bg-white pa1 lh-solid w-100 w-75-m w-80-l br2-ns br--left-ns'}>
+                        <AsyncSelect
+                        isMulti
+                        closeMenuOnSelect={false}
+                        cacheOptions
+                        components={makeAnimated()}
+                        defaultOptions
+                        loadOptions={this.promiseOptions}
+                        className='tagSelect'
+                        id='tagSelect'
+                        type={'submit'}
+                        onChange={this.handleTagsToState}/>
+                    </div>
+                    <input
+                        className="f6 f5-l button-reset fl pv3 tc bn bg-animate hover-bg-black white pointer w-100 w-25-m w-20-l br2-ns br--right-ns"
+                        type="submit"
+                        value="Save Tags"
+                        onClick={this.clickOnSubmit}/>
+            </div>
         );
     }
 }

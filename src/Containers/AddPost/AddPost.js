@@ -16,16 +16,17 @@ class AddPost extends Component {
     }
 
     componentDidUpdate(){
-        console.log('Did updated state', this.state.articles, 'can fetch')
+        console.log('Did updated state', this.state, 'can fetch')
 
     }
 
-    handleToUpdate(postT,postS,aPub){
-        console.log('We pass argument from Child to Parent: ', aPub);
+    handleToUpdate(postT,postS,aPub,postTags){
         this.setState({
             articles:aPub,
             postTitle:postT,
-            postShort:postS
+            postShort:postS,
+            postTags:postTags
+
         })
 
   }
