@@ -37,6 +37,7 @@ class ArticleForm extends React.Component {
     }
 
     componentDidUpdate() {
+        console.log(this.state.postTags)
     }
 
 
@@ -101,7 +102,7 @@ class ArticleForm extends React.Component {
                                 className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6"
                                 type="submit"
                                 value="Add Post"
-                                onClick={this.handleSubmit}/>
+                                onClick={this.clickOnSubmit}/>
                                 <input
                                     className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6"
                                     type="submit"
