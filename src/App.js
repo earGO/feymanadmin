@@ -1,25 +1,59 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 
+
+/*Containers import*/
+
+import StartCard from './Containers/StartCard/StartCard';
+import AddPost from './Containers/AddPost/AddPost';
+import EditPost from './Containers/EditPost/EditPost';
+import RemovePost from './Containers/RemovePost/RemovePost';
+
+/*Components import*/
+import InputForm from './Components/InputForm/InputForm';
+import SignIn from './Components/SignIn/SignIn';
+
 class App extends Component {
+  constructor(props) {
+    super(props)
+      this.state ={
+          route:'addpost',
+          navType: 'addpost'
+      }
+  }
+  componentDidMount() {
+      document.title = "admin console for a Feyman Blog";
+      fetch('http://localhost:3000/admin')
+          .then(response => response.json())
+          .then(data => console.log(data))
+          .catch(err => console.log('error getting post'))
+  }
+    onRouteChange = (route,navType) => {
+        this.setState({'route': route});
+        this.setState({'navType': navType});
+    }
+
   render() {
+    const {route,navType} = this.state;
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+          {route==='start'
+              ?<StartCard onRouteChange={this.onRouteChange} navType={navType}/>
+              :(route==='addpost'
+              ? <AddPost onRouteChange={this.onRouteChange} navType={navType}/>
+              :(route==='editpost'
+                      ?<EditPost onRouteChange={this.onRouteChange} navType={navType}/>
+                          : (route==='removepost'
+                              ?<RemovePost onRouteChange={this.onRouteChange} navType={navType}/>
+                              :(route === 'signin'
+                                  ?<SignIn onRouteChange={this.onRouteChange} navType={navType}/>
+                                      :<InputForm/>
+
+                              ))
+                  ))
+
+          }
+
       </div>
     );
   }
