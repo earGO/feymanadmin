@@ -1,32 +1,43 @@
 import React, { Component } from 'react';
 import './App.css';
 
-
 /*Containers import*/
 
 import StartCard from './Containers/StartCard/StartCard';
 import AddPost from './Containers/AddPost/AddPost';
 import EditPost from './Containers/EditPost/EditPost';
 import RemovePost from './Containers/RemovePost/RemovePost';
+import SignIn from './Components/SignIn/SignIn';
+import Registration from './Components/Registration/Registration';
 
 /*Components import*/
-
-import SignIn from './Components/SignIn/SignIn';
 
 class App extends Component {
   constructor(props) {
     super(props)
       this.state ={
           route:'signin', /*a routing state*/
-          navType: 'signin' /*a state do define type of a <NavCard> component to show*/
+          navType: 'signin', /*a state do define type of a <NavCard> component to show*/
+          serveradress: 'http://localhost:5500/', /*a state to set localhost port in one place*/
+          endpoints: {
+              tagSelect: 'admin/tags/', /*get all tags to fill <TagSelector> when creating new post*/
+              smartPost: 'smart', /*send to frontend a JSON object with post data to process, created on backend*/
+              addpost: 'admin/addpostwtags', /*an endpoint to add post to database*/
+              isuser: 'admin/isuser' /*an endpoint to check if there is user to define register or signin*/
+          }
       }
   }
   /*a simple response to test connection at app mounting*/
   componentDidMount() {
       document.title = "admin console for a Feyman Blog";
-      fetch('http://localhost:3000/admin')
+      let fetchUrl=this.state.serveradress.concat(this.state.endpoints.isuser)
+      fetch(fetchUrl)
           .then(response => response.json())
-          .then(data => console.log(data))
+          .then(data => {
+              if (data==="user not found"){
+                  console.log(data)
+              }
+          })
           .catch(err => console.log('error getting post'))
   }
   /*a method for route handling*/
@@ -36,13 +47,19 @@ class App extends Component {
     }
 
   render() {
-    const {route,navType} = this.state;
+    const {route,navType,serveradress,endpoints} = this.state;
     return (
       <div className="App">
           {route==='start'
               ?<StartCard onRouteChange={this.onRouteChange} navType={navType}/>
               :(route==='addpost'
-              ? <AddPost onRouteChange={this.onRouteChange} navType={navType}/>
+              ? <AddPost
+                      onRouteChange={this.onRouteChange}
+                      navType={navType}
+                      serverAdress={serveradress}
+                      tagsEndPoint={endpoints.tagSelect}
+                      addPostEndpoint={endpoints.addpost}
+                  />
               :(route==='editpost'
                       ?<EditPost onRouteChange={this.onRouteChange} navType={navType}/>
                           : (route==='removepost'

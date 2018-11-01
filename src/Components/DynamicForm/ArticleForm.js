@@ -49,7 +49,8 @@ class ArticleForm extends React.Component {
             /*a method to send post to database*/
     clickOnSubmit = (e) => {
         const {articles,postTitle, postShort,postTags} = this.state;
-        fetch('http://localhost:3000/admin/addpostwtags', {
+        let fetchUrl=this.props.serverAdress.concat(this.props.addPostEndpoint)
+        fetch(fetchUrl, {
             method: 'post',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
@@ -97,7 +98,11 @@ class ArticleForm extends React.Component {
                                               style={{height:200,width:650}}/>
                                 </div>
                             </fieldset>
-                            <TagSelector handleTagsUpdate={this.handleTagsUpdate}/>
+                            <TagSelector
+                                handleTagsUpdate={this.handleTagsUpdate}
+                                tagsEndPoint={this.props.tagsEndPoint}
+                                serverAdress={this.props.serverAdress}
+                            />
                             <div className="mt3">
                                 <input
                                 className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6"

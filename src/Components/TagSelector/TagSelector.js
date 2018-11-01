@@ -15,12 +15,13 @@ export default class TagSelector extends React.Component {
     }
     /*fetch all tags from database*/
     componentDidMount() {
-        fetch('http://localhost:3000/admin/tags/')
+        let fetchUrl=this.props.serverAdress.concat(this.props.tagsEndPoint)
+        fetch(fetchUrl)
             .then(response => response.json())
             .then(data => {
                 this.setState({fColors: data});
             })
-            .catch(err => console.log('error getting post'))
+            .catch(err => console.log('error getting tags'))
     }
     componentDidUpdate() {
 

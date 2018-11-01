@@ -36,7 +36,13 @@ class AddPost extends Component {
         return(
             <div className={'returnWrapper'}>
                 <NavCard navType={this.props.navType} onRouteChange={this.props.onRouteChange}/>
-                <ArticleForm handleToUpdate={handleToUpdate}/>
+                <ArticleForm
+                    handleToUpdate={handleToUpdate}
+                    tagsEndPoint={this.props.tagsEndPoint}
+                    serverAdress={this.props.serverAdress}
+                    addPostEndpoint={this.props.addPostEndpoint}
+
+                />
             </div>
         )
     }
