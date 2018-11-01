@@ -1,5 +1,7 @@
 import React from 'react';
 
+/*top <NavCard> component. Was too lazy to do it "right" way, maybe on release of V2.*/
+
 const NavCard = ({onRouteChange,navType}) => {
     return(
         <div className="retWrapper">

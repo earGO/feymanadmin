@@ -7,8 +7,7 @@ class ArticleForm extends React.Component {
     constructor(props){
         super(props)
         this.state={
-            articles: [{articleTitle:"", articleBody:"",articleImage:"",articleUrl:""}],
-            /*postData: [{postTitle: "",postShort:""}],*/
+            articles: [{articleTitle:"", articleBody:"",articleImage:"",articleUrl:""}],/*a state where all articles forms put into*/
             postTitle: '',
             postShort: '',
             postTags:[]
@@ -19,13 +18,13 @@ class ArticleForm extends React.Component {
 
 
     }
-
+    /*a method for event handler of a button, that adds another empty article form*/
     addCat = (e) => {
         this.setState((prevState) => ({
             articles: [...prevState.articles, {articleTitle:"", articleBody:"",articleImage:"",articleUrl:""}],
         }));
     }
-
+    /*a method handles creation of a new article-form based on a fields, mentioned in a state 'articles'*/
     handleChange(e) {
        if (["articleTitle", "articleBody","articleImage","articleUrl"].includes(e.target.className) ) {
             let articles = [...this.state.articles];
@@ -35,18 +34,19 @@ class ArticleForm extends React.Component {
             this.setState({ [e.target.name]: e.target.value })
         };
     }
-
+    /*a debugging console logging*/
     componentDidUpdate() {
         console.log(this.state.postTags)
     }
 
-
+    /*a method handles Submit event and updates a parent state*/
     handleSubmit = (e) => {
         const {articles,postTitle, postShort,postTags} = this.state;
         this.props.handleToUpdate(postTitle,postShort,articles,postTags)
         e.preventDefault();
             }
 
+            /*a method to send post to database*/
     clickOnSubmit = (e) => {
         const {articles,postTitle, postShort,postTags} = this.state;
         fetch('http://localhost:3000/admin/addpostwtags', {
@@ -60,6 +60,7 @@ class ArticleForm extends React.Component {
             })
         })
     }
+    /*a method to put tags in a component's state*/
     handleTagsUpdate (tags){
         this.setState({
             postTags:tags

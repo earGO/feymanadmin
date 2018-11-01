@@ -13,7 +13,7 @@ export default class TagSelector extends React.Component {
         };
 
     }
-
+    /*fetch all tags from database*/
     componentDidMount() {
         fetch('http://localhost:3000/admin/tags/')
             .then(response => response.json())
@@ -25,24 +25,25 @@ export default class TagSelector extends React.Component {
     componentDidUpdate() {
 
     }
+    /*deals with user's input to search options in loaded tags*/
     filterTags = (inputValue: string) =>
         this.state.fColors.filter(i =>
             i.label.toLowerCase().includes(inputValue.toLowerCase())
         );
-
+    /*actualy shows fetched tags in dropdown list*/
     promiseOptions = inputValue =>
         new Promise(resolve => {
             setTimeout(() => {
                 resolve(this.filterTags(inputValue));
             }, 1000);
         });
-
+    /*handles user input in tags form*/
     handleInputChange = (newValue: string) => {
         const inputValue = newValue.replace(/\W/g, '');
         this.setState({ inputValue });
         return inputValue;
     };
-
+    /*sends tags to component's state to save them and fetch to db later*/
     handleTagsToState = (opt,meta) => {
         if (opt.length) {
             this.setState({
@@ -50,7 +51,7 @@ export default class TagSelector extends React.Component {
 
         }
     }
-
+    /*sends selected tags to parent's state, unused as of now*/
     clickOnSubmit = (e) => {
         this.props.handleTagsUpdate(this.state.sTags);
 
@@ -76,7 +77,9 @@ export default class TagSelector extends React.Component {
                         className="f6 f5-l button-reset fl pv3 tc bn bg-animate hover-bg-black white pointer w-100 w-25-m w-20-l br2-ns br--right-ns"
                         type="submit"
                         value="Save Tags"
-                        onClick={this.clickOnSubmit}/>
+                        onClick={this.clickOnSubmit}
+                    onChange={this.handleInputChange}/>
+
             </div>
         );
     }

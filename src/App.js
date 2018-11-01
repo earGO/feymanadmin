@@ -10,17 +10,18 @@ import EditPost from './Containers/EditPost/EditPost';
 import RemovePost from './Containers/RemovePost/RemovePost';
 
 /*Components import*/
-import InputForm from './Components/InputForm/InputForm';
+
 import SignIn from './Components/SignIn/SignIn';
 
 class App extends Component {
   constructor(props) {
     super(props)
       this.state ={
-          route:'addpost',
-          navType: 'addpost'
+          route:'addpost', /*a routing state*/
+          navType: 'addpost' /*a state do define type of a <NavCard> component to show*/
       }
   }
+  /*a simple response to test connection at app mounting*/
   componentDidMount() {
       document.title = "admin console for a Feyman Blog";
       fetch('http://localhost:3000/admin')
@@ -28,6 +29,7 @@ class App extends Component {
           .then(data => console.log(data))
           .catch(err => console.log('error getting post'))
   }
+  /*a method for route handling*/
     onRouteChange = (route,navType) => {
         this.setState({'route': route});
         this.setState({'navType': navType});
@@ -47,7 +49,7 @@ class App extends Component {
                               ?<RemovePost onRouteChange={this.onRouteChange} navType={navType}/>
                               :(route === 'signin'
                                   ?<SignIn onRouteChange={this.onRouteChange} navType={navType}/>
-                                      :<InputForm/>
+                                      :<div>Somethin brawken</div>
 
                               ))
                   ))

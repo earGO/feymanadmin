@@ -19,7 +19,7 @@ class AddPost extends Component {
         console.log('Did updated state', this.state, 'can fetch')
 
     }
-
+    /*method given as prop to ArticleForm component, needed to handle ArticleForm state to this component state.*/
     handleToUpdate(postT,postS,aPub,postTags){
         this.setState({
             articles:aPub,
