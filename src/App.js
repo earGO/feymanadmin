@@ -21,7 +21,6 @@ class App extends Component {
           serveradress: 'http://localhost:5500/', /*a state to set localhost port in one place*/
           endpoints: {
               tagSelect: 'admin/tags/', /*get all tags to fill <TagSelector> when creating new post*/
-              smartPost: 'smart', /*send to frontend a JSON object with post data to process, created on backend*/
               addpost: 'admin/addpostwtags', /*an endpoint to add post to database*/
               isuser: 'admin/isuser' /*an endpoint to check if there is user to define register or signin*/
           }
