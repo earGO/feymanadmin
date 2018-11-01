@@ -17,8 +17,8 @@ class App extends Component {
   constructor(props) {
     super(props)
       this.state ={
-          route:'addpost', /*a routing state*/
-          navType: 'addpost' /*a state do define type of a <NavCard> component to show*/
+          route:'signin', /*a routing state*/
+          navType: 'signin' /*a state do define type of a <NavCard> component to show*/
       }
   }
   /*a simple response to test connection at app mounting*/
