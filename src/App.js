@@ -16,13 +16,15 @@ class App extends Component {
   constructor(props) {
     super(props)
       this.state ={
-          route:'signin', /*a routing state*/
-          navType: 'signin', /*a state do define type of a <NavCard> component to show*/
+          route:'editpost', /*a routing state*/
+          navType: 'editpost', /*a state do define type of a <NavCard> component to show*/
           serveradress: 'http://localhost:5500/', /*a state to set localhost port in one place*/
           endpoints: {
               tagSelect: 'admin/tags/', /*get all tags to fill <TagSelector> when creating new post*/
               addpost: 'admin/addpostwtags', /*an endpoint to add post to database*/
-              isuser: 'admin/isuser' /*an endpoint to check if there is user to define register or signin*/
+              isuser: 'admin/isuser', /*an endpoint to check if there is user to define register or signin*/
+              catSelect: '',
+              subcatSelect:''
           }
       }
   }
@@ -33,8 +35,15 @@ class App extends Component {
       fetch(fetchUrl)
           .then(response => response.json())
           .then(data => {
-              if (data==="user not found"){
-                  console.log(data)
+              if (data ==="user not found"){
+                  console.log(data,'so need register')
+                  this.setState({
+                      route:'addpost'
+                  })
+              } else {
+                  this.setState({
+                      route:'signin'
+                  })
               }
           })
           .catch(err => console.log('error getting post'))
@@ -65,7 +74,9 @@ class App extends Component {
                               ?<RemovePost onRouteChange={this.onRouteChange} navType={navType}/>
                               :(route === 'signin'
                                   ?<SignIn onRouteChange={this.onRouteChange} navType={navType}/>
-                                      :<div>Somethin brawken</div>
+                                      :(route==='register'
+                                            ?<Registration onRouteChange={this.onRouteChange} navType={navType}/>
+                                            :<div>Somethin brawken</div>)
 
                               ))
                   ))

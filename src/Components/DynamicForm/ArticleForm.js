@@ -2,31 +2,35 @@ import React from "react";
 import '../../Components/TagSelector/TagSelector';
 import TagSelector from "../TagSelector/TagSelector";
 
+const initialState={
+    articles: [{articleTitle:" ", articleBody:" ",articleImage:" ",articleUrl:" ",articleUrlTitle:" "}],/*a state where all articles forms put into*/
+    postTitle: '',
+    postShort: '',
+    postTags:[]
+}
 
 class ArticleForm extends React.Component {
     constructor(props){
         super(props)
-        this.state={
-            articles: [{articleTitle:"", articleBody:"",articleImage:"",articleUrl:""}],/*a state where all articles forms put into*/
-            postTitle: '',
-            postShort: '',
-            postTags:[]
-        };
+        this.state=initialState;
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleTagsUpdate = this.handleTagsUpdate.bind(this);
+    }
 
-
+    componentDidMount(){
+        this.setState(initialState)
+        console.log(this.state)
     }
     /*a method for event handler of a button, that adds another empty article form*/
     addCat = (e) => {
         this.setState((prevState) => ({
-            articles: [...prevState.articles, {articleTitle:"", articleBody:"",articleImage:"",articleUrl:""}],
+            articles: [...prevState.articles, {articleTitle:"", articleBody:"",articleImage:"",articleUrl:"",articleUrlTitle:""}],
         }));
     }
     /*a method handles creation of a new article-form based on a fields, mentioned in a state 'articles'*/
     handleChange(e) {
-       if (["articleTitle", "articleBody","articleImage","articleUrl"].includes(e.target.className) ) {
+       if (["articleTitle", "articleBody","articleImage","articleUrl","articleUrlTitle"].includes(e.target.className) ) {
             let articles = [...this.state.articles];
             articles[e.target.dataset.id][e.target.className] = e.target.value;
             this.setState({ articles: articles })
@@ -36,7 +40,6 @@ class ArticleForm extends React.Component {
     }
     /*a debugging console logging*/
     componentDidUpdate() {
-        console.log(this.state.postTags)
     }
 
     /*a method handles Submit event and updates a parent state*/
@@ -59,7 +62,8 @@ class ArticleForm extends React.Component {
                 articles:articles,
                 tags:postTags
             })
-        })
+        }).then(this.setState(initialState))
+            .catch(err=>(console.log('error fetching post: ',err)))
     }
     /*a method to put tags in a component's state*/
     handleTagsUpdate (tags){
@@ -95,7 +99,7 @@ class ArticleForm extends React.Component {
                                            name='postShort'
                                            data-id={0}
                                            id='postShort'
-                                              style={{height:200,width:650}}/>
+                                              style={{height:150,width:650}}/>
                                 </div>
                             </fieldset>
                             <TagSelector
@@ -121,7 +125,9 @@ class ArticleForm extends React.Component {
 
                     {articles.map((val, idx)=> {
                         let articleId = `article-${idx}`, articleBodyId = `articleBody-${idx}`,
-                            articleImageId = `articleImage-${idx}`,articleUrlId = `articleUrl-${idx}`
+                            articleImageId = `articleImage-${idx}`,articleUrlId = `articleUrl-${idx}`,
+                            articleUrlTitleId = `articleUrlTitle-${idx}`
+
                         return (
                             <article className="pa4 black-80" key={idx}>
                                 <form action="sign-up_submit" method="get" acceptCharset="utf-8">
@@ -143,7 +149,7 @@ class ArticleForm extends React.Component {
                                                    data-id={idx}
                                                    id={articleBodyId}
                                                    className="articleBody"
-                                                      style={{height:200,width:650}}/>
+                                                      style={{height:300,width:650}}/>
                                         </div>
                                         <div className="mt3">
                                             <label className="db fw4 lh-copy f6" htmlFor={articleImageId}>Article ImageUrl</label>
@@ -161,6 +167,15 @@ class ArticleForm extends React.Component {
                                                    data-id={idx}
                                                    id={articleUrlId}
                                                    className="articleUrl"
+                                                   style={{width:650}}/>
+                                        </div>
+                                        <div className="mt3">
+                                            <label className="db fw4 lh-copy f6" htmlFor={articleUrlTitleId}>articleUrlTitle</label>
+                                            <input type="text"
+                                                   name={articleUrlTitleId}
+                                                   data-id={idx}
+                                                   id={articleUrlTitleId}
+                                                   className="articleUrlTitle"
                                                    style={{width:650}}/>
                                         </div>
                                     </fieldset>

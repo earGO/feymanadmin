@@ -8,7 +8,6 @@ class AddPost extends Component {
         super(props)
         this.state = {
             articles: [],
-
                     };
 
         this.handleToUpdate = this.handleToUpdate.bind(this);
@@ -26,9 +25,7 @@ class AddPost extends Component {
             postTitle:postT,
             postShort:postS,
             postTags:postTags
-
         })
-
   }
 
     render () {
