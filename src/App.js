@@ -2,15 +2,18 @@ import React, { Component } from 'react';
 import './App.css';
 
 /*Containers import*/
-
-import StartCard from './Containers/StartCard/StartCard';
 import AddPost from './Containers/AddPost/AddPost';
 import EditPost from './Containers/EditPost/EditPost';
 import RemovePost from './Containers/RemovePost/RemovePost';
+import CompoundArticle from './Components/CompoundArticle/CompoundArticle';
+
+
+/*Components import*/
+import StartCard from './Containers/StartCard/StartCard';
 import SignIn from './Components/SignIn/SignIn';
 import Registration from './Components/Registration/Registration';
 
-/*Components import*/
+
 
 class App extends Component {
   constructor(props) {
@@ -69,7 +72,7 @@ class App extends Component {
                       addPostEndpoint={endpoints.addpost}
                   />
               :(route==='editpost'
-                      ?<EditPost onRouteChange={this.onRouteChange} navType={navType}/>
+                      ?<CompoundArticle onRouteChange={this.onRouteChange} navType={navType}/>
                           : (route==='removepost'
                               ?<RemovePost onRouteChange={this.onRouteChange} navType={navType}/>
                               :(route === 'signin'

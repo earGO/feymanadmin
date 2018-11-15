@@ -13,12 +13,13 @@ class SingleArticle extends React.Component {
 
     componentDidMount(){
         this.setState(initialState)
-        console.log(this.state)
+
     }
 
     /*a debugging console logging*/
     componentDidUpdate() {
         console.log(this.state)
+
     }
 
     addParagraph = (e) => {
@@ -31,14 +32,22 @@ class SingleArticle extends React.Component {
         e.preventDefault()
     }
 
+    onSaveClick = (e) => {
+        this.props.saveParagraphs(this.state.paragraphs);
+    }
+
     handleChange = (e) => {
         if(["paragraphBody"].includes(e.target.className)) {
             let paragraphs = [...this.state.paragraphs]
             paragraphs[e.target.dataset.id][e.target.className] = e.target.value
-            this.setState({paragraphs}, () => console.log(this.state.paragraphs))
+            this.setState({paragraphs})
         } else {
             this.setState({[e.target.name]:e.target.value})
         }
+    }
+
+    handleSave = (e) => {
+
     }
 
     render() {
@@ -65,7 +74,7 @@ class SingleArticle extends React.Component {
                                     <fieldset className="ba b--transparent ph0 mh0 b--black-30">
                                         <div className="mt3">
                                             <label className="db fw4 lh-copy f6" htmlFor={paragraphId}>{`Paragraph #${idx+1} body`}</label>
-                                            <input className="paragraphBody"
+                                            <textarea className="paragraphBody"
                                                    type="text"
                                                    name={paragraphId}
                                                    data-id={idx}
@@ -84,6 +93,7 @@ class SingleArticle extends React.Component {
                     <input
                         className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6"
                         value="Save Article"
+                        onClick={this.onSaveClick}
                     />
                 </div>
             </div>
